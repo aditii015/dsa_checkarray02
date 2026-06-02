@@ -10,11 +10,9 @@ int sortedArray(int arr[], int n){
     }
     return true;
 }
-
 int main(){
     int arr[] = {1,3,2,3,1,4};
     int n = 6;
-
     sortedArray(arr , n);
     for(int i=0;i<n;i++){
         cout<<arr[i]<<" ";
@@ -28,3 +26,13 @@ int main(){
     return 0;
 }
 
+//Find Largest element in unsorted array
+int largestElement(int arr[], int n){
+    int largest = arr[0];
+    for(int i=0;i<n;i++){
+         if(arr[i] = largest){
+             largest = arr[i];
+         }
+    }
+    return largest;
+}
