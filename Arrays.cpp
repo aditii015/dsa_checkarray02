@@ -36,3 +36,13 @@ int largestElement(int arr[], int n){
     }
     return largest;
 }
+
+//Left rotate the array by one place
+void rotateArray(int arr[], int n){
+    int temp = arr[0];
+
+    for(int i=1;i<n;i++){
+        arr[i-1] = arr[i];
+    }
+    arr[n-1] = temp;     //{1,2,3,4,5} = {2,3,4,5,1}
+}
