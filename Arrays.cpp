@@ -46,3 +46,22 @@ void rotateArray(int arr[], int n){
     }
     arr[n-1] = temp;     //{1,2,3,4,5} = {2,3,4,5,1}
 }
+
+//Find missing no. in array
+int missingNumber(int arr[],int N){
+    int xor1=0, xor2=0;
+    int n = N-1;
+    for(int i=0;i<n;i++){
+        xor2=xor2 ^ arr[i];
+        xor1=xor1 ^(i+1);
+    }
+    xor1 = xor1 ^ N;
+    return xor1 ^xor2;
+}
+int main(){
+    int arr[] = {1,2,4,5};
+    int n = 4;
+    int newLength = missingNumber(arr, n);
+    cout<<newLength;
+    return 0;
+}
