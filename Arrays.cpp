@@ -65,3 +65,23 @@ int main(){
     cout<<newLength;
     return 0;
 }
+
+//Two Sum
+string read(int n, int book[], int target){
+    sort(book, book+n);
+    int left=0;
+    int right = n-1;
+    while(left<right){
+        int sum = book[left]+book[right];
+        if(sum==target){
+            return "YES";
+        }
+        else if(sum<target){
+            left++;
+        }
+        else{
+            right--;
+        }
+    }
+    return "NO";
+}   //cout<<read(n,book,9);  YES  cout<<read(n,book,29);   NO
