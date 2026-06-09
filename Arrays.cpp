@@ -85,3 +85,12 @@ string read(int n, int book[], int target){
     }
     return "NO";
 }   //cout<<read(n,book,9);  YES  cout<<read(n,book,29);   NO
+
+//Find no. that appears once and others twice
+int getSingleElement(int arr[], int n){
+    int xOr=0;
+    for(int i=0; i<n;i++){
+        xOr=xOr ^ arr[i];
+    }
+    return xOr;
+}   //cout<<"Single Element "<<getSingleElement(arr, n);  
