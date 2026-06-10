@@ -94,3 +94,18 @@ int getSingleElement(int arr[], int n){
     }
     return xOr;
 }   //cout<<"Single Element "<<getSingleElement(arr, n);  
+
+//Find no. of subarrays with xor k
+int subarrayWithSumK(int arr[], int n, int k) {
+    int xr = 0;
+    map<int, int> mpp;
+    mpp[xr] = 1;  // Initialize for XOR = 0
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        xr ^= arr[i];
+        int x = xr ^ k;
+        count += mpp[x];
+        mpp[xr]++;
+    }
+    return count;
+}  //cout << subarrayWithSumK(arr, n, k) << endl;   4
