@@ -109,3 +109,33 @@ int subarrayWithSumK(int arr[], int n, int k) {
     }
     return count;
 }  //cout << subarrayWithSumK(arr, n, k) << endl;   4
+
+//Maximum subarray sum using kadane's algorithm
+long long maxSubarraySum(int arr[], int n) {
+    long long maxi = LLONG_MIN;
+    long long sum = 0;
+    int start = 0;
+    int ans_start = -1;
+    int ans_end = -1;
+    for (int i = 0; i < n; i++) {
+        if (sum == 0)
+            start = i;
+        sum += arr[i];
+        if (sum > maxi) {
+            maxi = sum;
+            ans_start = start;
+            ans_end = i;
+        }
+        if (sum < 0)
+            sum = 0;
+    }
+    cout << "Maximum Sum = " << maxi << endl;
+    cout << "Start Index = " << ans_start << endl;
+    cout << "End Index = " << ans_end << endl;
+    cout << "Subarray: ";
+    for (int i = ans_start; i <= ans_end; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;  //maxSubarraySum(arr, n) {-2,1,-3,4,-1,2,1,-5,4};  Maximum Sum = 6 Start Index = 3 End Index = 6 Subarray: 4 -1 2 1 
+    return maxi;
+}
