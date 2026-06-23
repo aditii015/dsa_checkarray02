@@ -139,3 +139,14 @@ long long maxSubarraySum(int arr[], int n) {
     cout << endl;  //maxSubarraySum(arr, n) {-2,1,-3,4,-1,2,1,-5,4};  Maximum Sum = 6 Start Index = 3 End Index = 6 Subarray: 4 -1 2 1 
     return maxi;
 }
+
+//1929 Concatenation of array
+    vector<int> getConcatenation(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans(2*n);
+        for(int i=0;i<n;i++){
+            ans[i] = nums[i];
+            ans[i+n] = nums[i];
+        }
+        return ans;
+    }
