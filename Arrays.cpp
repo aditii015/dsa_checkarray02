@@ -234,3 +234,12 @@ void nextPermutation(vector<int>& nums) {
         }
         return third;
     }
+
+//189 right Rotate the array by k times
+void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        k %= n;
+        reverse(nums.begin(), nums.end());
+        reverse(nums.begin(), nums.begin() + k);
+        reverse(nums.begin() + k, nums.end());
+    }
