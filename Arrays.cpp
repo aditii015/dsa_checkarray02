@@ -243,3 +243,9 @@ void rotate(vector<int>& nums, int k) {
         reverse(nums.begin(), nums.begin() + k);
         reverse(nums.begin() + k, nums.end());
     }
+
+//215 Kth Largest element in an array
+int findKthLargest(vector<int>& nums, int k) {
+        nth_element(nums.begin(), nums.end() - k, nums.end());
+        return nums[nums.size() - k];
+}
