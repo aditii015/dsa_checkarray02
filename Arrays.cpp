@@ -348,3 +348,23 @@ vector<int> rightSideView(TreeNode* root) {
         }
         return ans;
     }
+
+//104 Max Depth
+int maxDepth(TreeNode* root) {
+    if(root == NULL) return 0;
+    int left = maxDepth(root->left);
+    int right = maxDepth(root->right);
+    return 1 + max(left, right);
+}
+
+//111 Min Depth 
+int minDepth(TreeNode* root) {
+        if(root == NULL) return 0;
+        int left = minDepth(root->left);
+        int right = minDepth(root->right);
+    
+        if(root->left == NULL) return 1+right;
+        if(root->right == NULL) return 1+left;
+
+        return 1 + min(left, right);
+    }
