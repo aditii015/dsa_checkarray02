@@ -437,3 +437,12 @@ int leftHeight(TreeNode* root){
             return (1 << lh) - 1;
         return 1 + countNodes(root->left) + countNodes(root->right);
     }
+
+//112 Path Sum 
+ bool hasPathSum(TreeNode* root, int targetSum) {
+        if(root == NULL) return 0;
+        if(root->left==NULL && root->right==NULL)
+            return targetSum == root->val;
+
+        return hasPathSum(root->left, targetSum - root->val) || hasPathSum(root->right, targetSum - root->val);
+    }
