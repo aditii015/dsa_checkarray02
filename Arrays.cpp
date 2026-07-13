@@ -446,3 +446,23 @@ int leftHeight(TreeNode* root){
 
         return hasPathSum(root->left, targetSum - root->val) || hasPathSum(root->right, targetSum - root->val);
     }
+
+//257 Binary Tree Paths
+void dfs(TreeNode* root, string path, vector<string>& ans){
+        if(root == NULL) return;
+        if(path.empty())
+           path += to_string(root->val);
+        else
+        path += "->" + to_string(root->val);
+        if(root->left == NULL && root->right == NULL){
+            ans.push_back(path);
+            return;
+        }
+        dfs(root->left, path, ans);
+        dfs(root->right, path, ans);
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> ans;
+        dfs(root, "", ans);
+        return ans;
+    }
