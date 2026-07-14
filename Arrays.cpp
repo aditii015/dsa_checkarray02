@@ -466,3 +466,14 @@ void dfs(TreeNode* root, string path, vector<string>& ans){
         dfs(root, "", ans);
         return ans;
     }
+
+//129 Sum Root to leaf Numbers
+int dfs(TreeNode* root, int current){
+        if(root == NULL) return 0;
+        current = current * 10 + root->val;
+        if(root->left == NULL && root->right == NULL) return current;
+        return dfs(root->left, current) + dfs(root->right, current);
+    }
+    int sumNumbers(TreeNode* root) {
+        return dfs(root, 0);
+    }
