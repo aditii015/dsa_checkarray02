@@ -477,3 +477,19 @@ int dfs(TreeNode* root, int current){
     int sumNumbers(TreeNode* root) {
         return dfs(root, 0);
     }
+
+//162 Find Peak Element
+int findPeakElement(vector<int>& nums) {
+        int low = 0;
+        int high = nums.size() - 1;
+        while(low<high){
+            int mid = low + (high-low)/2;
+            if(nums[mid] < nums[mid+1]){
+                low = mid + 1;
+            }
+            else{
+                high = mid;
+            }
+        }
+        return low;
+    }
