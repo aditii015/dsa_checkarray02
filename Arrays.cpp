@@ -610,3 +610,27 @@ bool isAnagram(string s, string t) {
         }
         return true;
     }
+
+//451 Sort Characters by frequency
+unordered_map<char, int> mp;
+        for(char ch : s) {
+            mp[ch]++;
+        }
+        vector<pair<int, char>> freq;
+        for(auto it : mp) {
+            freq.push_back({it.second, it.first});
+        }
+        sort(freq.begin(), freq.end(),
+             [](pair<int, char>& a, pair<int, char>& b) {
+                 return a.first > b.first;
+             });
+        string ans = "";
+        for(auto it : freq) {
+            int count = it.first;
+            char ch = it.second;
+            while(count--) {
+                ans += ch;
+            }
+        }
+        return ans;
+}
