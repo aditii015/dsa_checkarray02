@@ -587,3 +587,10 @@ bool isIsomorphic(string s, string t) {
         }
         return true;
     }
+
+//796 Rotate String
+ bool rotateString(string s, string goal) {
+        if(s.length() != goal.length()) return false;
+        string doubled = s + s;
+        return doubled.find(goal) != string::npos;
+    }
