@@ -737,3 +737,20 @@ int singleNumber(vector<int>& nums) {
                return it.first;           
         return -1;
     }
+
+//169 Single Element(Moore's Voting Algorithm)
+int majorityElement(vector<int>& nums) {
+        int candidate = 0;
+        int count = 0;
+        for(int num : nums){
+            if(count == 0) 
+                candidate = num;
+            if(candidate == num){
+                count++;
+            }
+            else{
+                count--;
+            }
+        }
+        return candidate;
+    }
