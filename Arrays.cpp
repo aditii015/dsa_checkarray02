@@ -726,3 +726,14 @@ vector<int> plusOne(vector<int>& digits) {
         digits.insert(digits.begin(),1);
         return digits;
     }
+
+//136 Single Number(Hash Map)
+int singleNumber(vector<int>& nums) {
+        unordered_map<int, int> mp;
+        for(int x : nums)
+           mp[x]++;
+        for(auto it : mp)
+           if(it.second == 1)
+               return it.first;           
+        return -1;
+    }
