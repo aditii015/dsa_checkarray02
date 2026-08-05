@@ -799,3 +799,17 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
             tail->next = list2;
         return current.next;
     }
+
+//58 Length of last word(string)
+int lengthOfLastWord(string s) {
+        int count = 0;
+        int i = s.length() - 1;
+        while(i >= 0 && s[i] == ' '){
+            i--;
+        }
+        while(i >= 0 && s[i] != ' '){
+            count++;
+            i--;
+        }
+        return count;
+    }
