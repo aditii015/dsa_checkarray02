@@ -927,3 +927,40 @@ bool wordPattern(string pattern, string s) {
         }
         return true;
     }
+
+//234 Palindrome Linked List
+ListNode* reverseList(ListNode* head){
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        while(curr != nullptr){
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev= curr;
+            curr = next;
+        } 
+        return prev;
+    }
+    bool isPalindrome(ListNode* head) {
+        if(head == nullptr && head->next == nullptr){
+            return true;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next != nullptr && fast->next->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode* second = reverseList(slow->next);
+        ListNode* first = head;
+        ListNode* temp = second;
+
+        while(temp != nullptr){
+            if(first->val != temp->val){
+                return false;
+            }
+            first = first->next;
+            temp = temp->next;
+        }
+        slow->next = reverseList(second);
+        return true;
+    }
