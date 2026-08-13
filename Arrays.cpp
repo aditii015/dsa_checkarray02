@@ -980,3 +980,14 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
         slow->next = slow->next->next;
         return dummy->next;
     }
+
+//876 Middle of the linked list
+ListNode* middleNode(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast != NULL && fast->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
