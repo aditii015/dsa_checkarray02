@@ -1243,3 +1243,20 @@ public:
         bool right = isSameTree(p->right, q->right);
         return left && right;
     }
+
+//101 Symmetric Tree
+bool mirror(TreeNode* left, TreeNode* right){
+        if(left == NULL && right == NULL) return true;
+        if(left == NULL || right == NULL) return false;
+        if(left->val != right->val) return false;
+
+        bool outer = mirror(left->left, right->right);
+        bool inner = mirror(left->right, right->left);
+
+        return outer && inner;
+    }
+
+    bool isSymmetric(TreeNode* root) {
+        if(root == NULL) return true;        
+        return mirror(root->left, root->right);
+    }
