@@ -1260,3 +1260,17 @@ bool mirror(TreeNode* left, TreeNode* right){
         if(root == NULL) return true;        
         return mirror(root->left, root->right);
     }
+
+//404  Sum of Left Leaves
+int sum(TreeNode* root, bool isLeft){
+        if(root == NULL) return 0;
+
+        if(isLeft && root->left == NULL && root->right == NULL){
+            return root->val;
+        }
+        return sum(root->left, true) + sum(root->right, false);
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        if(root == NULL) return 0;        
+        return sum(root->left, true) + sum(root->right, false);
+    }
