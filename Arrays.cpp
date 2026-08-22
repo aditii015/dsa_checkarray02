@@ -1274,3 +1274,35 @@ int sum(TreeNode* root, bool isLeft){
         if(root == NULL) return 0;        
         return sum(root->left, true) + sum(root->right, false);
     }
+
+//501 Find Mode in Binary Search Tree
+vector<int> ans;
+    int currentCount = 0;
+    int maxCount = 0;
+    int prev = 0;
+    bool hasPrev = false;
+    void inorder(TreeNode* root){
+        if(root == NULL) return;
+
+        inorder(root->left);
+        if(!hasPrev || root->val != prev){
+            currentCount = 1;
+        }else{
+            currentCount++;
+        }
+        prev = root->val;
+        hasPrev = true;
+
+        if(currentCount > maxCount){
+            maxCount = currentCount;
+            ans.clear();
+            ans.push_back(root->val);
+        }else if(currentCount == maxCount){
+            ans.push_back(root->val);
+        }
+        inorder(root->right);
+    }
+    vector<int> findMode(TreeNode* root) {
+        inorder(root);
+        return ans;
+    }
