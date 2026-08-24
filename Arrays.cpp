@@ -1360,3 +1360,34 @@ void dfs(TreeNode* root, int targetSum, vector<int>& path, vector<vector<int>>& 
         dfs(root, targetSum, path, ans);
         return ans;
     }
+
+//662 Maximum Width of Binary tree(queue)
+int widthOfBinaryTree(TreeNode* root) {
+        if(root == NULL) return 0;
+
+        queue<pair<TreeNode* , long long>> q;
+        q.push({root, 0});
+        long long ans = 0;
+
+        while(!q.empty()){
+            int levelSize = q.size();
+            long long first = q.front().second;
+            long long last = first;
+
+            for(int i=0;i<levelSize;i++){
+                auto[node, pos] = q.front();
+                q.pop();
+
+                pos -= first;
+                last = pos;
+                if(node->left){
+                    q.push({node->left, 2*pos + 1});
+                }
+                if(node->right){
+                    q.push({node->right, 2*pos + 2});
+                }
+            }
+            ans = max(ans, last + 1);
+        }
+        return ans;
+    }
