@@ -1415,3 +1415,31 @@ int widthOfBinaryTree(TreeNode* root) {
         }
         return build(preorder,0,preorder.size()-1,0,inorder.size()-1);
     }
+
+//515 Find Largest Value in Each Tree Row(queue)
+vector<int> largestValues(TreeNode* root) {
+        vector<int> ans;
+        queue<TreeNode*> q;
+
+        if(root == NULL) return ans;
+        q.push(root);
+        while(!q.empty()){
+            int levelSize = q.size();
+            int maxValue = q.front()->val;
+            
+            for(int i=0;i<levelSize;i++){
+                TreeNode* node = q.front();
+                q.pop();
+
+                maxValue = max(maxValue, node->val);
+                if(node->left){
+                    q.push(node->left);
+                }
+                if(node->right){
+                    q.push(node->right);
+                }
+            }
+            ans.push_back(maxValue);
+        }
+        return ans;
+    }
