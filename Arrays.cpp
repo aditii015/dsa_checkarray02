@@ -1391,3 +1391,27 @@ int widthOfBinaryTree(TreeNode* root) {
         }
         return ans;
     }
+
+//105 Construct Binary Tree from Preorder and Inorder Traversal(hashMap)
+    unordered_map<int, int> mp;
+    TreeNode* build(vector<int>& preorder, int preStart, int preEnd, int inStart, int inEnd){
+        if(preStart > preEnd || inStart > inEnd){
+            return NULL;
+        }
+        int rootValue = preorder[preStart];
+        TreeNode* root = new TreeNode(rootValue);
+
+        int rootIndex = mp[rootValue];
+        int leftSize = rootIndex - inStart;
+        root->left = build(preorder, preStart + 1, preStart+leftSize, inStart, rootIndex-1);
+        root->right = build(preorder, preStart+leftSize+1, preEnd, rootIndex+1, inEnd);
+
+        return root;
+
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        for(int i=0;i<inorder.size();i++){
+            mp[inorder[i]] = i;
+        }
+        return build(preorder,0,preorder.size()-1,0,inorder.size()-1);
+    }
