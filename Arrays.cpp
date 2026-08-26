@@ -1477,3 +1477,23 @@ int maxLevelSum(TreeNode* root) {
         }
         return ansLevel;
     }
+
+//124 Binary Tree Maximun Path Sum
+int dfs(TreeNode* root, int& maxSum){
+        if(root == NULL) return 0;
+
+        int left = dfs(root->left, maxSum);
+        int right = dfs(root->right, maxSum);
+
+        left = max(left, 0);
+        right = max(right, 0);
+
+        int currentPath = left + root->val + right;
+        maxSum = max(maxSum, currentPath);
+        return root->val + max(left, right);
+    }
+    int maxPathSum(TreeNode* root) {
+        int maxSum = INT_MIN;
+        dfs(root, maxSum);
+        return maxSum;
+    }
