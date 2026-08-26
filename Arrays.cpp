@@ -1443,3 +1443,37 @@ vector<int> largestValues(TreeNode* root) {
         }
         return ans;
     }
+
+//1161 Maximum Level Sum of a Binary Tree
+int maxLevelSum(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);
+
+        int currentLevel = 1;
+        int ansLevel = 1;
+        int maxSum = INT_MIN;
+
+        while(!q.empty()){
+            int levelSize = q.size();
+            int levelSum = 0;
+
+            for(int i=0;i<levelSize;i++){
+                TreeNode* node = q.front();
+                q.pop();
+
+                levelSum += node->val;
+                if(node->left){
+                    q.push(node->left);
+                }
+                if(node->right){
+                    q.push(node->right);
+                }
+            }
+            if(levelSum > maxSum){
+                maxSum = levelSum;
+                ansLevel = currentLevel;
+            }
+            currentLevel++;
+        }
+        return ansLevel;
+    }
