@@ -1511,3 +1511,72 @@ bool containsDuplicate(vector<int>& nums) {
         }
         return false;
     }
+
+//26 Remove Duplicates from Sorted Array 
+//Bruteforce
+int removeDuplicates(vector<int>& nums){
+    int n = nums.size();
+    vector<int> temp;
+
+    for(int i=0;i<n;i++){
+        if(i == n-1 || nums[i] != nums[j]){
+            temp.push_back(nums[i]);
+        }
+    }
+    for(int i=0;i<temp.size();i++){
+        nums[i] = temp[i];
+    }
+    return temp.size();
+}
+//optimal
+ int removeDuplicates(vector<int>& nums) {
+        if(nums.size()==0) return 0;
+
+        int slow=0;
+        for(int fast=1;fast<nums.size();fast++){
+            if(nums[fast] != nums[slow]){
+                slow++;
+                nums[slow] = nums[fast];
+            }
+        }
+        return slow + 1;
+ }
+
+//88 Merge Sorted Array
+//Bruteforce
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        vector<int> temp;
+
+        for(int i=0;i<m;i++){
+            temp.push_back(nums1[i]);
+        }
+        for(int i=0;i<n;i++){
+            temp.push_back(nums2[i]);
+        }
+        sort(temp.begin(), temp.end());
+        for(int i=0;i<m+n;i++){
+            nums1[i] = temp[i];
+        }
+    }
+//Optimal
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i = m-1;
+        int j = n-1;
+        int k = m+n-1;
+
+        while(i>=0 && j>=0){
+            if(nums1[i] > nums2[j]){
+                nums1[k] = nums1[i];
+                i--;
+            }else{
+                nums1[k] = nums2[j];
+                j--;
+            }
+            k--;
+        }
+        while(j>=0){
+            nums1[k] = nums2[j];
+            j--;
+            k--;
+        }
+    }
