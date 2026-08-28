@@ -1580,3 +1580,37 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
             k--;
         }
     }
+
+//560 Subarray Sum Equals K
+//Bruteforce
+int subarraySum(vector<int>& nums, int k) {
+        int count = 0;
+        for(int i=0;i<nums.size();i++){
+            int currSum = 0;
+            for(int j=i;j<nums.size();j++){
+                currSum += nums[j];
+
+                if(currSum == k){
+                    count++;
+                } 
+            }
+        }
+        return count;
+    }
+//Optimal
+int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        mp[0] = 1;
+        int count = 0;
+        int sum = 0;
+
+        for(int i=0;i<nums.size();i++){
+            sum += nums[i];
+            int totalSum = sum - k;
+            if(mp.find(totalSum) != mp.end()){
+                count += mp[totalSum];
+            }
+            mp[sum]++;
+        }
+        return count;
+    }
