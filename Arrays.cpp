@@ -1614,3 +1614,36 @@ int subarraySum(vector<int>& nums, int k) {
         }
         return count;
     }
+
+//238 Product of Array Except Self
+//Bruteforce(TLE)
+vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> ans;
+
+        for(int i=0;i<nums.size();i++){
+            int pdt = 1;
+            for(int j=0;j<nums.size();j++){
+                if(i != j){
+                    pdt *= nums[j];
+                }
+            }
+            ans.push_back(pdt);
+        }
+        return ans;
+    }
+//Optimal(prefix + suffix)
+vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> ans(nums.size());
+        int prefix = 1;
+
+        for(int i=0;i<nums.size();i++){
+           ans[i] = prefix;
+           prefix *= nums[i];
+        }
+        int suffix = 1;
+        for(int i=nums.size() - 1;i >= 0;i--){
+            ans[i] *= suffix;
+            suffix *= nums[i];
+        }
+        return ans;
+    }
