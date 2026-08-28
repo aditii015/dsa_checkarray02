@@ -1669,3 +1669,41 @@ void sortColors(vector<int>& nums) {
             }
         }
     }
+
+//11 Container with Most Water
+//Bruteforce
+int maxArea(vector<int>& height) {
+        int area = 0;
+
+        for(int i=0;i<height.size();i++){
+            for(int j=i+1;j<height.size();j++){
+                int width = j - i;
+                int waterHeight = min(height[i], height[j]);
+
+                int currentArea = width * waterHeight;
+
+                area = max(area, currentArea);
+            }
+        }
+        return area;
+    }
+//Optimal(two pointer)
+int maxArea(vector<int>& height) {
+        int left = 0;
+        int right = height.size() - 1;
+        int area = 0;
+
+        while(left < right){
+            int width = right - left;
+            int waterHeight = min(height[left], height[right]);
+            int currentArea = width * waterHeight;
+            area = max(area, currentArea);
+
+            if(height[left] < height[right]){
+                left++;
+            }else{
+                right--;
+            }
+        }
+        return area;
+    }
