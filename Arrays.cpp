@@ -1725,3 +1725,31 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
         ans.push_back(current);
         return ans;
 }
+
+//153 Find Minimum in Rotated Sorted Array
+//Bruteforce
+int findMin(vector<int>& nums) {
+        int minVal = nums[0];
+
+        for(int i=0;i<nums.size();i++){
+            minVal = min(minVal, nums[i]);
+        }
+        return minVal;
+    }
+//Optimal(Binary Search)
+int findMin(vector<int>& nums) {
+        int left = 0;
+        int right = nums.size()-1;
+
+        while(left< right){
+            int mid = (left+right)/2;
+
+            if(nums[mid] > nums[right]){
+                left = mid+1;
+            }
+            else{
+                right = mid;
+            }
+        }
+        return nums[left];
+    }
