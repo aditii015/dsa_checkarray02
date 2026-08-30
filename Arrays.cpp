@@ -1753,3 +1753,53 @@ int findMin(vector<int>& nums) {
         }
         return nums[left];
     }
+
+//42 Trapping Rain water(hard level)
+//Bruteforce(TLE)
+int trap(vector<int>& height) {
+        int total = 0;
+        for(int i=0;i<height.size();i++){
+            int leftMax = 0;
+            for(int j=0;j<=i;j++){
+                leftMax = max(leftMax, height[j]);
+            }
+            int rightMax = 0;
+            for(int j=i;j<height.size();j++){
+                rightMax = max(rightMax, height[j]);
+            }
+            int water = min(leftMax, rightMax) - height[i];
+            total += water;
+        }
+        return total;
+    }
+//Optimal(two pointer)
+int trap(vector<int>& height) {
+        int left = 0;
+        int right = height.size() - 1;
+
+        int leftMax = 0;
+        int rightMax = 0;
+
+        int total = 0;
+        while(left <= right){
+            if(leftMax <= rightMax){
+                if(height[left] >= leftMax){
+                    leftMax = height[left];
+                }
+                else{
+                    total += leftMax - height[left];
+                }
+                left++;
+            }
+            else{
+                if(height[right] >= rightMax){
+                    rightMax = height[right];
+                }
+                else{
+                    total += rightMax - height[right];
+                }
+                right--;
+            }
+        }
+        return total;            
+    }
