@@ -1842,3 +1842,35 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
         }
         return ans;
     }
+
+//739 Daily Temperatures
+//Bruteforce
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+        vector<int> ans(temperatures.size(), 0);
+
+        for(int i=0;i<temperatures.size();i++){
+            for(int j=i+1;j<temperatures.size();j++){
+                if(temperatures[j] > temperatures[i]){
+                    ans[i] = j-i;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+//Optimal(using stack)
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+        vector<int> ans(temperatures.size(), 0);
+        stack<int> st;
+
+        for(int i=0;i<temperatures.size();i++){
+            while(!st.empty() && temperatures[i] > temperatures[st.top()]){
+                int prev = st.top();
+                st.pop();
+
+                ans[prev] = i - prev;
+            }
+            st.push(i);
+        }
+        return ans;
+    }
