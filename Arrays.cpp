@@ -1937,3 +1937,25 @@ int evalRPN(vector<string>& tokens) {
         }
         return st.top();
     }
+
+//853 Car Fleet
+int carFleet(int target, vector<int>& position, vector<int>& speed) {
+        stack<double> st;
+        vector<pair<int, int>> cars;
+
+        for(int i=0;i<position.size();i++){
+            cars.push_back({position[i], speed[i]});
+         
+        }
+        sort(cars.begin(), cars.end(), greater<pair<int,int>>());
+        for(auto car : cars){
+            int pos = car.first;
+            int spd = car.second;
+
+            double time = (double)(target-pos) / spd;
+            if(st.empty() || time > st.top()){
+                st.push(time);
+            }
+        }
+        return st.size();
+    }
