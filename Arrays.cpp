@@ -2047,3 +2047,45 @@ bool search(vector<int>& nums, int target) {
         }
         return false;
     }
+
+//76 Minimum Window Substring(Variable Sliding Window + Hash Map)
+string minWindow(string s, string t) {
+        unordered_map<char, int> required;
+        unordered_map<char, int> current;
+
+        for(char c : t){
+            required[c]++;
+        }
+        int left = 0;
+        int matched = 0;
+        int needCount = required.size();
+
+        int minLen = INT_MAX;
+        int start = 0;
+        for(int right = 0;right < s.size(); right++){
+            char c = s[right];
+            current[c]++;
+
+            if(required.count(c) && current[c] == required[c]){
+                matched++;
+            }
+            while(matched == needCount){
+                int len = right - left + 1;
+                if(len < minLen){
+                    minLen = len;
+                    start = left;
+                }
+                char leftChar = s[left];
+
+                if(required.count(leftChar) && current[leftChar] == required[leftChar]){
+                    matched--;
+                }
+                current[leftChar]--;
+                left++;
+            }
+        }
+        if(minLen == INT_MAX){
+            return "";
+        }
+        return s.substr(start, minLen);
+    }
