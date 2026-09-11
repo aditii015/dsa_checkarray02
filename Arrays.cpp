@@ -2185,3 +2185,62 @@ int minEatingSpeed(vector<int>& piles, int h) {
         }
         return left;
     }
+
+//567 Permutation in String
+//Bruteforce
+ bool checkInclusion(string s1, string s2) {
+        if(s1.length() > s2.length()){
+            return false;
+        }
+        int windowSize = s1.length();
+
+        for(int i=0;i<=s2.length() - windowSize;i++){
+            string window = s2.substr(i, windowSize);
+
+            int freq1[26] = {};
+            for(char c : s1){
+                freq1[c - 'a']++;
+            }
+            int freq2[26] = {};
+            for(char c : window){
+                freq2[c - 'a']++;
+            }
+            if(equal(freq1, freq1+26, freq2)){
+                return true;
+            }
+        }
+        return false;
+    }
+//Optimal
+bool checkInclusion(string s1, string s2) {
+        if(s1.length() > s2.length()){
+            return false;
+        }
+        int windowSize = s1.length();
+
+        int freq1[26] = {};
+        for(char c : s1){
+            freq1[c - 'a']++;
+        }
+        int freq2[26] = {};
+        for(int i=0;i<windowSize;i++){
+            freq2[s2[i] - 'a']++;
+        } 
+        if(equal(freq1, freq1+26, freq2)){
+            return true;
+        }
+        int left = 0;
+        int right = windowSize;
+        while(right < s2.length()){
+            freq2[s2[left] - 'a']--;
+            freq2[s2[right] - 'a']++;
+
+            left++;
+            right++;
+
+            if(equal(freq1, freq1+26, freq2)){
+               return true;
+            }
+        } 
+        return false;      
+    }
