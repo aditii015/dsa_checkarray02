@@ -2244,3 +2244,37 @@ bool checkInclusion(string s1, string s2) {
         } 
         return false;      
     }
+
+//438 Find ALL Anagrams in a String
+vector<int> findAnagrams(string s, string p) {
+        vector<int> ans;
+        if(p.length() > s.length()){
+            return ans;
+        }
+        int windowSize = p.length();
+        int freq1[26] = {};
+        for(char c : p){
+            freq1[c - 'a']++;
+        }
+        int freq2[26] = {};
+        for(int i=0;i<windowSize;i++){
+            freq2[s[i] - 'a']++;
+        }
+        if(equal(freq1, freq1 + 26, freq2)){
+            ans.push_back(0);
+        }
+        int left = 0;
+        int right = windowSize;
+
+        while(right < s.length()){
+            freq2[s[left] - 'a']--;
+            freq2[s[right] - 'a']++;
+
+            left++;
+            right++;
+            if(equal(freq1, freq1 + 26, freq2)){
+                ans.push_back(left);
+            }
+        }
+        return ans;
+    }
