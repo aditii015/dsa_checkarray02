@@ -2321,3 +2321,30 @@ int firstUniqChar(string s) {
         }
         return -1;
     }
+
+//443 String Compression(read + write pointer)
+int compress(vector<char>& chars) {
+        int n = chars.size();
+
+        int read = 0;
+        int write = 0;
+        while(read < n){
+            char current = chars[read];
+            int j = read;
+            while(j < n && chars[j] == current){
+                j++;
+            }
+            int count = j - read;
+            chars[write++] = current;
+
+            if (count > 1) {
+               string countStr = to_string(count);
+
+                for (char c : countStr) {
+                   chars[write++] = c;
+                }
+            }
+            read = j;
+        }
+        return write;
+    }
