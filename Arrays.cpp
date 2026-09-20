@@ -2363,3 +2363,16 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
         }
         return ans;
     }
+
+//392 Is Subsequence(optimal - two pointer)
+bool isSubsequence(string s, string t) {
+        int i = 0;
+        int j = 0;
+        while (i < s.size() && j < t.size()) {
+            if (s[i] == t[j]) {
+              i++;
+            }
+            j++;
+        }
+        return i == s.size();
+    }
