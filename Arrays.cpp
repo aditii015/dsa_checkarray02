@@ -2376,3 +2376,25 @@ bool isSubsequence(string s, string t) {
         }
         return i == s.size();
     }
+
+//409 Longest Palindrome
+int longestPalindrome(string s) {
+        unordered_map<char, int> freq;
+        for(char c : s){
+            freq[c]++;
+        }
+        int length = 0;
+        bool hasOdd = false;
+        for (auto& entry : freq) {
+            int count = entry.second;
+
+            length += (count / 2) * 2;
+            if (count % 2 == 1) {
+               hasOdd = true;
+            }
+        }
+        if (hasOdd) {
+            length++;
+        }
+        return length;
+    }
