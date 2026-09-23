@@ -2423,3 +2423,31 @@ bool isVowel(char c){
         }
         return s;   
     }
+
+//459 Repeated Substring Pattern 
+//bruteforce
+bool repeatedSubstringPattern(string s) {
+        int n = s.size();
+        for(int len = 1;len < n;len++){
+            if(n % len != 0){
+                continue;
+            }
+            string pattern = s.substr(0, len);
+            bool match = true;
+            for(int i=0;i<n;i++){
+                if(s[i] != pattern[i % len]){
+                    match = false;
+                    break;
+                }
+            }
+            if(match){
+                return true;
+            }
+        }
+        return false;
+    }
+//optimal
+bool repeatedSubstringPattern(string s) {
+        int n = s.size();
+        return (s + s).find(s, 1) != n;
+    }
