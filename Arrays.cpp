@@ -2451,3 +2451,19 @@ bool repeatedSubstringPattern(string s) {
         int n = s.size();
         return (s + s).find(s, 1) != n;
     }
+
+//3550 Smallest Index with Digit Sum equal to Index
+int smallestIndex(vector<int>& nums) {
+        int ans = -1;
+        for(int i=0;i<nums.size();i++){
+            int sum = 0;
+            int x = nums[i];
+
+            while(x>0){
+                sum += x % 10;
+                x /= 10;
+            }
+            if(sum == i) return i;
+        }
+        return -1;
+    }
