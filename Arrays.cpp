@@ -2480,3 +2480,26 @@ string reverseWords(string s) {
         }
         return s;
     }
+
+//791 Custom Sort String(map)
+string customSortString(string order, string s) {
+        string ans = "";
+        int freq[26] = {0};
+    
+        for(char c : s){
+            freq[c - 'a']++;
+        }
+        for(char c : order){
+            while(freq[c - 'a'] > 0){
+                ans += c;
+                freq[c - 'a']--;
+            }
+        }   
+        for(int i=0;i<26;i++){
+            while(freq[i] > 0){
+                ans += char('a' + i);
+                freq[i]--;
+            }
+        }
+        return ans;
+    }
