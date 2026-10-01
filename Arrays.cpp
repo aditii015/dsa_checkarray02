@@ -2679,3 +2679,73 @@ bool closeStrings(string word1, string word2) {
         }
         return true;
     }
+
+//316 Remove Duplicate Letters
+//bruteforce(memory limit exceeded)
+    string ans = "";
+    void generate(string &s, int index, string current){
+        if(index == s.size()){
+            bool seen[26] = {false};
+            for(char c : current) {
+                if(seen[c - 'a'])
+                    return;
+
+                seen[c - 'a'] = true;
+            }
+            bool present[26] = {false};
+            for(char c : s)
+                present[c - 'a'] = true;
+
+            for(char c : current) {
+                present[c - 'a'] = false;
+            }
+            for(int i = 0; i < 26; i++) {
+                if(present[i])
+                    return;
+            }
+            if(ans == "" || current < ans)
+                ans = current;
+
+            return;
+        }
+        current += s[index];
+        generate(s, index + 1, current);
+
+        current.pop_back();
+        generate(s, index + 1, current);
+    }
+    string removeDuplicateLetters(string s) {
+        generate(s, 0, "");
+        return ans;
+    }
+//optimal(stack)
+string removeDuplicateLetters(string s) {
+        int freq[26] = {0};
+
+        for(char c : s){
+            freq[c - 'a']++;
+        }
+        bool used[26] = {false};
+        stack<char> st;
+
+        for(char c : s){
+            freq[c - 'a']--;
+
+            if(used[c - 'a']){
+                continue;
+            }
+            while(!st.empty()  && st.top() > c && freq[st.top() - 'a'] > 0){
+                used[st.top() - 'a'] = false;
+                st.pop();
+            } 
+            st.push(c);
+            used[c - 'a'] = true;
+        }
+        string ans = "";
+        while(!st.empty()){
+            ans += st.top();
+            st.pop();
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
