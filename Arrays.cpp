@@ -2785,3 +2785,31 @@ bool isLongPressedName(string name, string typed) {
         }
         return i == name.size();
     }
+
+//383 Ransom Note
+//bruteforce
+bool canConstruct(string ransomNote, string magazine) {
+        for(char c : ransomNote){
+            int pos = magazine.find(c);
+            if(pos == string::npos){
+                return false;
+            }
+            magazine.erase(pos, 1);
+        }
+        return true;
+    }
+//optimal
+bool canConstruct(string ransomNote, string magazine) {
+        int freq[26] = {0};
+        for(char c : magazine){
+            freq[c - 'a']++;
+        }
+        for(char c : ransomNote){
+            freq[c - 'a']--;
+
+            if(freq[c - 'a'] < 0){
+                return false;
+            }
+        }
+        return true;
+    }
