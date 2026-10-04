@@ -2813,3 +2813,40 @@ bool canConstruct(string ransomNote, string magazine) {
         }
         return true;
     }
+
+//389 Find the Difference
+//bruteforce
+char findTheDifference(string s, string t) {
+        vector<bool> used(s.size(), false);
+        for(int i=0;i<t.size();i++){
+            bool found = false;
+            for(int j=0;j<s.size();j++){
+                if(!used[j] && t[i] == s[j]){
+                    used[j] = true;
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                return t[i];
+            }
+        }
+        return ' ';
+    }
+//optimal
+char findTheDifference(string s, string t) {
+        int freq1[26] = {0};
+        int freq2[26] = {0};
+        for(char c : s){
+            freq1[c - 'a']++;
+        }    
+        for(char c : t){
+            freq2[c - 'a']++;
+        }
+        for(int i=0;i<26;i++){
+            if(freq1[i] != freq2[i]){
+                return 'a' + i;
+            }
+        }
+        return ' ';
+    }
