@@ -2870,3 +2870,60 @@ string mergeAlternately(string word1, string word2) {
         }
         return ans;
     }
+
+//680 Valid Palindrome II
+//bruteforce(TLE)
+bool isPalindrome(string s){
+        int left = 0;
+        int right = s.size() - 1;
+        while(left < right){
+            if(s[left] != s[right]){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+    bool validPalindrome(string s) {
+        if(isPalindrome(s)){
+            return true;
+        }
+        for(int i=0;i<s.size();i++){
+            string ans = "";
+
+            for(int j=0;j<s.size();j++){
+                if(j != i){
+                    ans += s[j];
+                }
+            }
+            if(isPalindrome(ans)){
+                return true;
+            }
+        }
+        return false;
+    }
+//optimal(two pointers)
+bool check(string &s, int left, int right){
+        while(left < right){
+            if(s[left] != s[right]){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+    bool validPalindrome(string s) {
+        int left = 0;
+        int right = s.size() - 1;
+        while(left < right) {
+            if(s[left] != s[right]) {
+                return check(s, left + 1, right) ||
+                    check(s, left, right - 1);
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
