@@ -2957,3 +2957,25 @@ string addStrings(string num1, string num2) {
         reverse(ans.begin(), ans.end());
         return ans;
     }
+
+//1704 Determine if String Halves are Alike
+bool isVowel(char c){
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o'|| c == 'u' || 
+            c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
+    }
+    bool halvesAreAlike(string s) {
+        int n = s.size();
+        int mid = n/2;
+        int count = 0;
+        
+        for(int i=0;i<n;i++){
+            if(isVowel(s[i])){
+                if(i < mid){
+                    count++;
+                }else{
+                    count--;
+                }
+            }
+        }
+        return count == 0;
+    }
