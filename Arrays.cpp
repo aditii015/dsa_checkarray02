@@ -2987,3 +2987,27 @@ string reverseStr(string s, int k) {
         }
         return s;
     }
+
+//1071 Greatest  Common Divisor of Strings
+bool divides(string candidate, string s){
+        if(s.size() % candidate.size() != 0)
+            return false;
+
+        for(int i=0;i<s.size();i++){
+            if(s[i] != candidate[i % candidate.size()]){
+                return false;
+            }
+        }
+        return true;
+    }
+    string gcdOfStrings(string str1, string str2) {
+        string shorter = str1.size() < str2.size() ? str1 : str2;
+
+        for(int len = shorter.size(); len >= 1; len--){
+            string candidate = shorter.substr(0, len);
+
+            if(divides(candidate, str1) && divides(candidate, str2))
+                return candidate;
+        }
+        return "";
+    }
