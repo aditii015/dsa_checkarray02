@@ -2979,3 +2979,11 @@ bool isVowel(char c){
         }
         return count == 0;
     }
+
+//541 Reverse String II
+string reverseStr(string s, int k) {
+        for(int start=0;start < s.size();start += 2*k){
+            reverse(s.begin() + start, s.begin() + min(start + k, (int)s.size()));
+        }
+        return s;
+    }
