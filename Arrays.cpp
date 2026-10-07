@@ -2989,6 +2989,7 @@ string reverseStr(string s, int k) {
     }
 
 //1071 Greatest  Common Divisor of Strings
+//bruteforce
 bool divides(string candidate, string s){
         if(s.size() % candidate.size() != 0)
             return false;
@@ -3010,4 +3011,12 @@ bool divides(string candidate, string s){
                 return candidate;
         }
         return "";
+    }
+//optimal
+string gcdOfStrings(string str1, string str2) {
+        if(str1 + str2 != str2 + str1)
+           return "";
+
+        int len = gcd(str1.size(), str2.size());
+        return str1.substr(0, len);
     }
