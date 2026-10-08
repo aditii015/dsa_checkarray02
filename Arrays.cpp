@@ -3020,3 +3020,40 @@ string gcdOfStrings(string str1, string str2) {
         int len = gcd(str1.size(), str2.size());
         return str1.substr(0, len);
     }
+
+//917 Reverse Only Letters
+//bruteforce
+string reverseOnlyLetters(string s) {
+        string letters = "";
+        for(int i=0;i<s.size();i++){
+            if(isalpha(s[i])){
+                letters += s[i];
+            }
+        }
+        reverse(letters.begin(), letters.end());
+        int j=0;
+        for(int i=0;i<s.size();i++){
+            if(isalpha(s[i])){
+                s[i] = letters[j];
+                j++; 
+            }
+        }
+        return s;
+    }
+//optimal(two pointer)
+string reverseOnlyLetters(string s) {
+        int left = 0;
+        int right = s.size() - 1;
+        while(left < right){
+            if(!isalpha(s[left])){
+                left++;
+            }else if(!isalpha(s[right])){
+                right--;
+            }else{
+                swap(s[left], s[right]);
+                left++;
+                right--;
+            }
+        }
+        return s;
+    }
