@@ -3093,3 +3093,20 @@ vector<int> sortArrayByParity(vector<int>& nums) {
         }
         return nums;
     }
+
+//881 Boats to Save People(optimal - two pointers)
+int numRescueBoats(vector<int>& people, int limit) {
+        sort(people.begin(), people.end());
+        int left = 0;
+        int right = people.size() - 1;
+        int boats = 0;
+
+        while(left <= right){
+            if(left < right && people[left] + people[right] <= limit){
+                left++;
+            }
+            right--;
+            boats++;
+        }
+        return boats;
+    }
