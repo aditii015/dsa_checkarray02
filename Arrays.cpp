@@ -3142,3 +3142,37 @@ vector<int> twoSum(vector<int>& numbers, int target) {
         }
         return {};
     }
+
+//977 Squares of a Sorted Array
+//bruteforce
+vector<int> sortedSquares(vector<int>& nums) {
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++){
+            ans.push_back(nums[i] * nums[i]);
+        }
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+//optimal
+vector<int> sortedSquares(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans(n);
+
+        int left = 0;
+        int right = n-1;
+        int index = n-1;
+        while(left <= right){
+            int leftSquare = nums[left] * nums[left];
+            int rightSquare = nums[right] * nums[right];
+            
+            if(leftSquare > rightSquare){
+                ans[index] = leftSquare;
+                left++;
+            }else{
+                ans[index] = rightSquare;
+                right--;
+            }
+            index--;
+        }
+        return ans;
+    }
