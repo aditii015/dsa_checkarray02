@@ -3215,3 +3215,35 @@ vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         }
         return vector<int>(ans.begin(), ans.end());
     }
+
+//268 Missing Numbers
+//bruteforce
+int missingNumber(vector<int>& nums) {
+        int n = nums.size();
+
+        for(int i=0;i<=n;i++){
+            bool found = false;
+            for(int j=0;j<n;j++){
+                if(nums[j] == i){
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                return i;
+            }
+        }
+        return -1;
+    }
+//optimal (use the sum formula)
+int missingNumber(vector<int>& nums) {
+        int n = nums.size();
+
+        int expectedSum = n * (n + 1) / 2;
+        int actualSum = 0;
+
+        for (int num : nums) {
+            actualSum += num;
+        }
+        return expectedSum - actualSum;
+    }
