@@ -3247,3 +3247,37 @@ int missingNumber(vector<int>& nums) {
         }
         return expectedSum - actualSum;
     }
+
+//448 Find All Numbers Disappeared in an Array
+//bruteforce
+vector<int> findDisappearedNumbers(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans;
+
+        for(int x=1;x<=n;x++){
+            bool found = false;
+            for(int i=0;i<n;i++){
+                if(nums[i] == x){
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                ans.push_back(x);
+            }
+        }
+        return ans;
+    }
+//optimal(hash set)
+vector<int> findDisappearedNumbers(vector<int>& nums) {
+        unordered_set<int> seen(nums.begin(), nums.end());
+        int n = nums.size();
+        vector<int> ans;
+
+        for(int x=1;x<=n;x++){
+            if(seen.find(x) == seen.end()){
+                ans.push_back(x);
+            }
+        }
+        return ans;
+    }
