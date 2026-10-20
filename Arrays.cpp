@@ -3281,3 +3281,34 @@ vector<int> findDisappearedNumbers(vector<int>& nums) {
         }
         return ans;
     }
+
+//643 Maximum Average Subarray I
+//bruteforce(TLE)
+double findMaxAverage(vector<int>& nums, int k) {
+        int n = nums.size();
+        double maxAvg = -1e9;
+
+        for (int i = 0; i <= n - k; i++) {
+            int sum = 0;
+            for (int j = i; j < i + k; j++) {
+                sum += nums[j];
+            }
+            double avg = (double)sum / k;
+            maxAvg = max(maxAvg, avg);
+        }
+        return maxAvg;
+    }
+//optimal(Sliding Window)
+double findMaxAverage(vector<int>& nums, int k) {
+        int sum = 0;
+        for (int i = 0; i < k; i++) {
+            sum += nums[i];
+        }
+        int maxSum = sum;
+
+        for (int i = k; i < nums.size(); i++) {
+            sum = sum - nums[i - k] + nums[i];
+            maxSum = max(maxSum, sum);
+        }
+        return (double)maxSum / k;
+    }
