@@ -3312,3 +3312,35 @@ double findMaxAverage(vector<int>& nums, int k) {
         }
         return (double)maxSum / k;
     }
+
+//219 Contains Duplicate II
+//bruteforce(TLE)
+bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        int n = nums.size();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+
+                if (nums[i] == nums[j] && abs(i - j) <= k) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+//optimal(Hashing + Sliding Window)
+bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        if (k == 0) return false;
+        unordered_set<int> s;
+        for (int i = 0; i < nums.size(); i++) {
+            if (s.count(nums[i])) return true;
+
+            s.insert(nums[i]);
+
+            if (i >= k) {
+                s.erase(nums[i - k]);
+            }
+        }
+
+        return false;
+    }
