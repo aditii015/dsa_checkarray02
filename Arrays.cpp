@@ -3483,14 +3483,14 @@ bool canJump(vector<int>& nums) {
     }
 
 //70 Climbing Strairs
-//bruteforce(recursion)
+//bruteforce(recursion) TLE
 int climbStairs(int n) {
         if(n <= 2){
             return n;
         }
         return climbStairs(n-1) + climbStairs(n-2);
     }
-//optimal
+//optimal(DP)
 int climbStairs(int n) {
         if(n <= 2){
             return n;
@@ -3502,4 +3502,32 @@ int climbStairs(int n) {
             dp[i] = dp[i-1] + dp[i-2];
         }
         return dp[n];
+    }
+
+//198 House Robber
+//bruteforce(Recursion) TLE
+int solve(vector<int>& nums, int i){
+        if(i >= nums.size()){
+            return 0;
+        }
+        int robCurrent = nums[i] + solve(nums, i+2);
+        int skipCurrent = solve(nums, i+1);
+
+        return max(robCurrent, skipCurrent);
+    }
+    int rob(vector<int>& nums) {
+        return solve(nums, 0);
+    }
+//optimal(DP)
+int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n + 2, 0);
+
+        for(int i=n-1;i>=0;i--){
+            int robCurrent = nums[i] + dp[i + 2];
+            int skipCurrent = dp[i + 1];
+
+            dp[i] = max(robCurrent, skipCurrent);
+        }
+        return dp[0];
     }
