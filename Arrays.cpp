@@ -3531,3 +3531,30 @@ int rob(vector<int>& nums) {
         }
         return dp[0];
     }
+
+//746 Min Cost Climbing Stairs
+//bruteforce(recursion) TLE
+int solve(vector<int>& cost, int i){
+        if(i >= cost.size()) return 0;
+        int first = cost[i] + solve(cost, i+1);
+        int second = cost[i] + solve(cost, i+2);
+
+        return min(first, second);
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+        return min(solve(cost, 0), solve(cost, 1));
+    }
+//optimal
+int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+        int next1 = 0;
+        int next2 = 0;
+
+        for(int i=n-1;i>=0;i--){
+            int curr = cost[i] + min(next1, next2);
+            next2 = next1;
+            next1 = curr;
+        }
+        return min(next1, next2);
+    }
