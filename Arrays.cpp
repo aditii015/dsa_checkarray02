@@ -3558,3 +3558,46 @@ int minCostClimbingStairs(vector<int>& cost) {
         }
         return min(next1, next2);
     }
+
+//496 Next Greater Element I
+//bruteforce
+vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans;
+        for(int i=0;i<nums1.size();i++){
+            int j = 0;
+            while(nums2[j] != nums1[i]){
+                j++;
+            }
+            int nextGreater = -1;
+            for(int k=j+1;k<nums2.size();k++){
+                if(nums2[k] > nums1[i]){
+                    nextGreater = nums2[k];
+                    break;
+                }
+            }
+            ans.push_back(nextGreater);
+        }
+        return ans;
+    }
+//optimal(stack)
+vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> mp;
+        stack<int> st;
+
+        for(int num : nums2){
+            while(!st.empty() && num > st.top()){
+                mp[st.top()] = num;
+                st.pop();
+            }
+            st.push(num);
+        }
+        vector<int> ans;
+        for(int num : nums1){
+            if(mp.find(num) != mp.end()){
+                ans.push_back(mp[num]);
+            }else{
+                ans.push_back(-1);
+            }
+        }
+        return ans;
+    }
