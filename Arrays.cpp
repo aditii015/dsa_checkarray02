@@ -3601,3 +3601,43 @@ vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
         }
         return ans;
     }
+
+//503 Next Greater ELement II
+//bruteforce
+vector<int> nextGreaterElements(vector<int>& nums) {
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++){
+            int nextGreater = -1;
+
+            for(int k=1;k<nums.size();k++){
+                int j = (i + k) % nums.size();
+
+                if(nums[j] > nums[i]){
+                    nextGreater = nums[j];
+                    break;
+                }
+            }
+            ans.push_back(nextGreater);
+        }
+        return ans;
+    }
+//optimal
+vector<int> nextGreaterElements(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans(n, -1);
+        stack<int> st;
+
+        for (int i = 2 * n - 1; i >= 0; i--) {
+            int index = i % n;
+            while(!st.empty() && st.top() <= nums[index]){
+                st.pop();
+            }
+            if (i < n) {
+                if (!st.empty()) {
+                    ans[index] = st.top();
+                }
+            }
+            st.push(nums[index]);
+        }
+        return ans;
+    }
