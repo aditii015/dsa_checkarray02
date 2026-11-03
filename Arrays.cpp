@@ -3641,3 +3641,62 @@ vector<int> nextGreaterElements(vector<int>& nums) {
         }
         return ans;
     }
+
+//1011 Capacity of Ship Packages Within D days
+//bruteforce TLE 
+int shipWithinDays(vector<int>& weights, int days) {
+        int maxWeight = *max_element(weights.begin(), weights.end());
+        int totalWeight = accumulate(weights.begin(), weights.end(), 0);
+
+        for (int capacity = maxWeight; capacity <= totalWeight; capacity++) {
+            int currentLoad = 0;
+            int requiredDays = 1;
+            for (int i = 0; i < weights.size(); i++) {
+                if (currentLoad + weights[i] <= capacity) {
+                    currentLoad += weights[i];
+                }
+                else {
+                    requiredDays++;
+                    currentLoad = weights[i];
+                }
+            }
+            if (requiredDays <= days) {
+                return capacity;
+            }
+        }
+        return totalWeight;
+    }
+//optimal (Binary Search)
+bool isPossible(vector<int>& weights, int days, int capacity) {
+        int requiredDays = 1;
+        int currentLoad = 0;
+
+        for (int i = 0; i < weights.size(); i++) {
+            if (currentLoad + weights[i] <= capacity) {
+                currentLoad += weights[i];
+            }
+            else {
+                requiredDays++;
+                currentLoad = weights[i];
+            }
+        }
+        return requiredDays <= days;
+    }
+    int shipWithinDays(vector<int>& weights, int days) {
+        int low = *max_element(weights.begin(), weights.end());
+        int high = accumulate(weights.begin(), weights.end(), 0);
+
+        int ans = high;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (isPossible(weights, days, mid)) {
+                ans = mid;
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
