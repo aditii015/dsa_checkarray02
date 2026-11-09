@@ -3790,3 +3790,40 @@ stack<pair<int, int>> st;
         
         return span;
     }
+
+//1047 Remove All Adjacent Duplicates in String
+//bruteforce(runtime error)
+string removeDuplicates(string s) {
+        bool found = true;
+        while(found){
+            found = false;
+            for(int i=0;i<s.size() - 1;i++){
+                if(s[i] == s[i+1]){
+                    s.erase(i,2);
+                    found = true;
+                    break;
+                }
+            }
+        }
+        return s;
+    }
+//optimal(stack)
+string removeDuplicates(string s) {
+        stack<char> st;
+
+        for(char c : s){
+            if(!st.empty() && st.top() == c){
+                st.pop();
+            }else{
+                st.push(c);
+            }
+        }
+        string ans = "";
+
+        while (!st.empty()) {
+            ans += st.top();
+            st.pop();
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
