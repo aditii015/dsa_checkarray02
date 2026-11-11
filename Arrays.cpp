@@ -3827,3 +3827,34 @@ string removeDuplicates(string s) {
         reverse(ans.begin(), ans.end());
         return ans;
     }
+
+//232 Implement Queue using Stacks
+stack<int> st1, st2;
+    MyQueue() {  
+    } 
+    void push(int x) {
+        st1.push(x);
+    }
+    void transfer(){
+        while(!st1.empty()){
+            st2.push(st1.top());
+            st1.pop();
+        }
+    }
+    int pop() {
+        if(st2.empty()){
+            transfer();
+        }
+        int x = st2.top();
+        st2.pop();
+        return x;
+    }  
+    int peek() {
+        if (st2.empty()) {
+            transfer();
+        }
+        return st2.top();
+    }
+    bool empty() {
+        return st1.empty() && st2.empty();
+    }
