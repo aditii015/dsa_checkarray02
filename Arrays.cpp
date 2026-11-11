@@ -3858,3 +3858,28 @@ stack<int> st1, st2;
     bool empty() {
         return st1.empty() && st2.empty();
     }
+
+//225 Implement Stack using Queues
+    queue<int> q;
+    MyStack() {        
+    }    
+    void push(int x) {
+        q.push(x);
+
+        int n = q.size();
+        for(int i=0;i<n-1;i++){
+            q.push(q.front());
+            q.pop();
+        }
+    }    
+    int pop() {
+        int x = q.front();
+        q.pop();
+        return x;
+    }    
+    int top() {
+        return q.front();
+    }
+    bool empty() {
+        return q.empty();
+    }
