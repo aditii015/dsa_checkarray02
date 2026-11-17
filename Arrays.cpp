@@ -3883,3 +3883,36 @@ stack<int> st1, st2;
     bool empty() {
         return q.empty();
     }
+
+//946 Validate Stack Sequences
+//bruteforce
+        stack<int> st;
+        int j = 0;
+        for (int i = 0; i < pushed.size(); i++) {
+            st.push(pushed[i]);
+
+            if (!st.empty() && st.top() == popped[j]) {
+                st.pop();
+                j++;
+                while (!st.empty() && j < popped.size()
+                       && st.top() == popped[j]) {
+                    st.pop();
+                    j++;
+                }
+            }
+        }
+        return j == popped.size();
+//optimal
+bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        stack<int> st;
+        int j = 0;
+
+        for (int x : pushed) {
+            st.push(x);
+            while (!st.empty() && st.top() == popped[j]) {
+                st.pop();
+                j++;
+            }
+        }
+        return st.empty();
+    }
