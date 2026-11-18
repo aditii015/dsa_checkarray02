@@ -3916,3 +3916,39 @@ bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
         }
         return st.empty();
     }
+
+//1441 Build an Array with Stack Operations
+//bruteforce
+vector<string> buildArray(vector<int>& target, int n) {
+        vector<string> ans;
+        stack<int> st;
+
+        for (int i = 1; i <= n; i++) {
+            st.push(i);
+            ans.push_back("Push");
+            if (find(target.begin(), target.end(), i) == target.end()) {
+                st.pop();
+                ans.push_back("Pop");
+            }
+            if (st.size() == target.size()) {
+                break;
+            }
+        }
+        return ans;
+    }
+//optimal
+vector<string> buildArray(vector<int>& target, int n) {
+        vector<string> ans;
+        int j = 0;
+
+        for (int i = 1; i <= n && j < target.size(); i++) {
+            ans.push_back("Push");
+            if (i == target[j]) {
+                j++;
+            }
+            else {
+                ans.push_back("Pop");
+            }
+        }
+        return ans;
+    }
