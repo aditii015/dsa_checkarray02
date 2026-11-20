@@ -3952,3 +3952,51 @@ vector<string> buildArray(vector<int>& target, int n) {
         }
         return ans;
     }
+//402 Remove k digits
+//bruteforce (TLE)
+string removeKdigits(string num, int k) {
+        while(k>0){
+            string smallest = "";
+            for(int i=0;i<num.size();i++){
+                string temp = num;
+                temp.erase(i, 1);
+
+                int pos = temp.find_first_not_of('0');
+                if(pos == string::npos){
+                    temp = "0";
+                }else{
+                    temp = temp.substr(pos);
+                }
+                if(smallest == "" || temp.size() < smallest.size() || (temp.size() == smallest.size() && temp < smallest)){
+                    smallest = temp;
+                }
+            }
+            num = smallest;
+            k--;
+        }
+        return num;
+    }
+//optimal(stack)
+string removeKdigits(string num, int k) {
+        string st = "";
+        for(char c : num){
+            while(!st.empty() && k > 0 && st.back() > c){
+                st.pop_back();
+                k--;
+            }
+            st.push_back(c);
+        }
+        while(k>0){
+            st.pop_back();
+            k--;
+        }
+        int i = 0;
+        while(i < st.size() && st[i] == '0'){
+            i++;
+        }
+        st = st.substr(i);
+        if(st.empty()){
+            return "0";
+        }
+        return st;
+    }
