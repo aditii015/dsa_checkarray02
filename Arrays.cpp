@@ -4031,3 +4031,48 @@ string minRemoveToMakeValid(string s) {
         }
         return ans;
     }
+
+//1209 Remove all Adjacent Duplicates in String II
+//bruteforce(TLE)
+string removeDuplicates(string s, int k) {
+        bool found = true;
+        while(found){
+            found = false;
+            for(int i=0;i+k<=s.size();i++){
+                bool same = true;
+                for(int j=i+1;j<i+k;j++){
+                    if(s[j] != s[i]){
+                        same = false;
+                        break;
+                    }
+                }
+                if (same) {
+                    s.erase(i, k);
+                    found = true;
+                    break;
+                }
+            }
+        }
+        return s;
+    }
+//optimal
+string removeDuplicates(string s, int k) {
+        stack<pair<char, int>> st;
+        for(char c : s){
+            if(!st.empty() && st.top().first == c){
+                st.top().second++;
+            } else {
+                st.push({c, 1});
+            }
+            if (st.top().second == k) {
+                st.pop();
+            }
+        }
+        string ans = "";
+        while(!st.empty()){
+            ans += string(st.top().second, st.top().first);
+            st.pop();
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
